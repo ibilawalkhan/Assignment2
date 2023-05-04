@@ -1,13 +1,16 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Text, TextInput, Button } from 'react-native-paper';
 import { ImageBackground } from 'react-native';
 
+function CreateAccount({ navigation }) {
 
-function Login({ navigation }) {
-    const [text, setText] = useState("");
-    const [password, setPassword] = useState("");
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+
     return (
         <ImageBackground
             style={styles.container}
@@ -15,16 +18,21 @@ function Login({ navigation }) {
             source={require('../assets/images/bg.jpg')}
         >
             <View style={styles.textView}>
-                {/* <Text variant='displaySmall' style={{ fontWeight: 'bold' }}>Login</Text> */}
-                <Text variant='labelLarge'>Please sign in to continue</Text>
+                {/* <Text variant='displaySmall' style={{ fontWeight: 'bold' }}>CreateAccount</Text> */}
             </View>
 
             <View style={styles.inputView}>
                 <TextInput
+                    label='Full Name'
+                    value={name}
+                    left={<TextInput.Icon icon="human" />}
+                    onChangeText={name => setName(name)}
+                />
+                <TextInput
                     label='Email'
-                    value={text}
+                    value={email}
                     left={<TextInput.Icon icon="email" />}
-                    onChangeText={text => setText(text)}
+                    onChangeText={email => setEmail(email)}
                 />
 
                 <TextInput
@@ -34,19 +42,27 @@ function Login({ navigation }) {
                     left={<TextInput.Icon icon="eye" />}
                     onChangeText={password => setPassword(password)}
                 />
+
+                <TextInput
+                    label='Confirm Password'
+                    value={confirmPassword}
+                    secureTextEntry
+                    left={<TextInput.Icon icon="eye" />}
+                    onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
+                />
+
             </View>
 
             <View>
-                <Button mode="contained" style={styles.btn}>Login</Button>
+                <Button mode="contained" style={styles.btn}>Sign up</Button>
             </View>
 
             <View style={[styles.bottomText, styles.txtAlign]}>
                 <View>
-                    <Text variant='titleSmall'> Don't have and account? </Text>
-                    <Button mode="text" style={styles.signBtn} onPress={() => navigation.navigate('CreateAccount')}><Text style={styles.colorTxt}>Sign up</Text></Button>
+                    <Text variant='titleSmall'> Already have a account? </Text>
+                    <Button mode="text" onPress={() => navigation.navigate('Login')}><Text style={styles.colorTxt}>Login</Text></Button>
                 </View>
             </View>
-
         </ImageBackground>
     )
 }
@@ -80,9 +96,9 @@ const styles = StyleSheet.create({
     },
     colorTxt: {
         color: '#e35720',
-        fontWeight: 'bold',
-    },
-});
+        fontWeight: 'bold'
+    }
 
+})
 
-export default Login;
+export default CreateAccount
